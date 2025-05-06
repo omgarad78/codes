@@ -155,3 +155,155 @@ int main()
 
     return 0;
 }
+
+
+// 📘 Sorting Algorithms: Sequential vs Parallel (Using OpenMP)
+// 🔹 Objective
+// The program compares the execution time of sequential and parallel versions of:
+
+// Bubble Sort
+
+// Merge Sort
+
+// It uses OpenMP for parallelism and measures performance using the chrono library.
+
+// 🔹 Key Concepts
+// ✅ Bubble Sort
+// A simple sorting algorithm that repeatedly compares adjacent elements and swaps them if they are in the wrong order.
+
+// Time Complexity: O(n²)
+
+// Best for small datasets due to poor scalability.
+
+// 🔸 Parallel Bubble Sort
+// Each pass of the inner loop is parallelized using OpenMP.
+
+// However, not very efficient in parallel form due to data dependency — swapping elements affects adjacent comparisons.
+
+// ✅ Merge Sort
+// A divide-and-conquer algorithm that splits the array, recursively sorts both halves, and then merges them.
+
+// Time Complexity: O(n log n)
+
+// Stable and suitable for large datasets.
+
+// 🔸 Parallel Merge Sort
+// Uses OpenMP sections to sort left and right halves in parallel.
+
+// Greatly benefits from parallel execution as each subarray can be processed independently.
+
+// 🔹 Execution Time Measurement
+// The chrono library is used to capture start and end times.
+
+// Time difference is calculated in milliseconds.
+
+// 🔹 Parallelism with OpenMP
+// #pragma omp parallel for – splits loop iterations across threads.
+
+// #pragma omp parallel sections – allows multiple independent sections to run concurrently.
+
+// Useful for multicore processors to reduce computation time.
+
+// 🧪 Performance Testing
+// Random arrays are generated using rand().
+
+// Sorting is performed multiple times on identical copies for fair comparison.
+
+// Performance is printed for:
+
+// Sequential Bubble Sort
+
+// Parallel Bubble Sort
+
+// Sequential Merge Sort
+
+// Parallel Merge Sort
+
+// -----------------------------------------------------------------------------------------
+
+
+// 🧮 1. Bubble Sort (Sequential)
+// 🔸 Concept:
+// Repeatedly compares adjacent elements and swaps them if they are in the wrong order.
+
+// After each pass, the largest unsorted element moves to its correct position — like bubbles rising in water.
+
+// 🧠 Example:
+// Initial array: [5, 3, 8, 4]
+
+// Step-by-step:
+// Pass 1:
+
+// Compare 5 & 3 → swap → [3, 5, 8, 4]
+
+// Compare 5 & 8 → no swap
+
+// Compare 8 & 4 → swap → [3, 5, 4, 8]
+
+// Pass 2:
+
+// Compare 3 & 5 → no swap
+
+// Compare 5 & 4 → swap → [3, 4, 5, 8]
+
+// Pass 3:
+
+// Compare 3 & 4 → no swap
+
+// ✅ Sorted output: [3, 4, 5, 8]
+
+// 🧮 2. Bubble Sort (Parallel using OpenMP)
+// 🔸 Concept:
+// Tries to run the inner loop (comparisons) in parallel using threads.
+
+// But: Each swap may affect future comparisons, so true parallel efficiency is limited.
+
+// ⚠️ Example:
+// Consider [5, 3, 8, 4], and suppose 2 threads run:
+
+// Thread 1 compares (5, 3)
+
+// Thread 2 compares (8, 4)
+
+// But in the next pass, order depends on earlier swaps, so results may become unpredictable if not synchronized properly.
+
+// 📌 So, it works, but performance gains are minimal and may not scale well.
+
+// 🧮 3. Merge Sort (Sequential)
+// 🔸 Concept:
+// Recursively splits the array in half.
+
+// Sorts each half.
+
+// Then merges the two sorted halves.
+
+// 🧠 Example:
+// Initial array: [6, 3, 8, 2]
+
+// Step-by-step:
+// Split into [6, 3] and [8, 2]
+
+// Sort [6, 3] → [3, 6]
+
+// Sort [8, 2] → [2, 8]
+
+// Merge [3, 6] and [2, 8] → [2, 3, 6, 8]
+
+// ✅ Sorted output: [2, 3, 6, 8]
+
+// 🧮 4. Merge Sort (Parallel using OpenMP)
+// 🔸 Concept:
+// Same divide-and-conquer logic, but:
+
+// Left and right halves are sorted concurrently in separate threads.
+
+// 🧠 Example (continued):
+// Initial: [6, 3, 8, 2]
+
+// Thread 1 sorts [6, 3] → [3, 6]
+
+// Thread 2 sorts [8, 2] → [2, 8]
+
+// Main thread merges them → [2, 3, 6, 8]
+
+// ✅ Much faster for large arrays, because recursion tree grows and can be parallelized deeply.
