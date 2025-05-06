@@ -109,3 +109,65 @@ int main()
 
     return 0;
 }
+
+
+
+// 📘 Graph Traversal Using Parallel BFS and Sequential DFS
+// 🔹 Graph Basics
+// A graph consists of nodes (vertices) and edges connecting them.
+
+// Can be directed or undirected, and weighted or unweighted.
+
+// Two common traversal algorithms are Breadth-First Search (BFS) and Depth-First Search (DFS).
+
+// 🔹 Breadth-First Search (BFS)
+// Explores the graph level by level starting from a given node.
+
+// Uses a queue-like structure to track the "current level" of nodes.
+
+// Visits all neighbors of a node before moving deeper.
+
+// ✅ Parallel BFS
+// BFS can be parallelized to speed up the exploration.
+
+// Each level of nodes is processed simultaneously by multiple threads.
+
+// Uses OpenMP for parallel execution and atomic operations to prevent race conditions.
+
+// Efficient for large graphs where each level has many nodes.
+
+// 🔹 Depth-First Search (DFS)
+// Explores the graph by going as deep as possible along each branch before backtracking.
+
+// Typically implemented using recursion or a stack.
+
+// Best for tasks like:
+
+// Checking connectivity
+
+// Detecting cycles
+
+// Topological sorting
+
+// ✅ Sequential DFS
+// Runs in a single thread.
+
+// Simple and memory-efficient.
+
+// Traverses nodes in a depth-first manner.
+
+// 🔹 Parallel vs Sequential
+// Feature	Parallel BFS	Sequential DFS
+// Traversal Type	Level-order (BFS)	Depth-order (DFS)
+// Speed	Faster on large graphs	Slower, but simpler
+// Threads Used	Multiple (OpenMP)	Single-threaded
+// Use Case	Large real-time applications	Graph analysis, tree problems
+
+// 🧠 Concepts Used
+// Adjacency List: Efficient structure for storing sparse graphs.
+
+// Atomic Variables: Prevent multiple threads from modifying the same variable simultaneously.
+
+// OpenMP: Parallel programming library for C++ to utilize multi-core processors.
+
+// Critical Sections: Ensures certain code blocks are accessed by only one thread at a time.
