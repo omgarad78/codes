@@ -1,0 +1,44 @@
+-------------------------------------------------
+g++ -fopenmp yourfile.cpp -o output.exe
+./output.exe
+
+
+nvcc hello.cu -o hello
+./hello
+
+--------------------------------------------------
+1. Check for NVIDIA GPU
+lspci | grep -i nvidia
+
+2. Install NVIDIA Drivers
+sudo ubuntu-drivers autoinstall
+sudo reboot
+
+3. Install CUDA Toolkit
+Download CUDA toolkit (e.g., CUDA 12.4) from:
+👉 https://developer.nvidia.com/cuda-downloads
+
+Choose:
+
+OS: Linux
+Distro: Ubuntu (select your version)
+Installer Type: deb (local)
+
+Then follow the installation commands given on the site (e.g.):
+sudo dpkg -i cuda-repo-ubuntu2204-*.deb
+sudo apt-key add /var/cuda-repo-*/7fa2af80.pub
+sudo apt update
+sudo apt install cuda
+
+
+4. Add CUDA to PATH
+Add this to your ~/.bashrc:
+
+export PATH=/usr/local/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+
+Apply changes:
+source ~/.bashrc
+
+5. Check CUDA Installation
+nvcc --version
